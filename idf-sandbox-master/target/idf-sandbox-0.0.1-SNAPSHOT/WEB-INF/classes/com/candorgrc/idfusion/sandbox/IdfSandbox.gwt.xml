@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='IdfSandbox'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+
+	<!-- Inherit the default GWT style sheet. You can change -->
+	<!-- the theme of your GWT application by uncommenting -->
+	<!-- any one of the following lines. -->
+	<!-- <inherits name='com.google.gwt.user.theme.standard.Standard' /> -->
+	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
+
+	<!-- Other module inherits -->
+	<inherits name="com.google.gwt.i18n.I18N" />
+	<inherits name="com.google.gwt.resources.Resources" />
+	<inherits name="com.google.gwt.inject.Inject" />
+	<inherits name="elemental2.dom.Dom" />
+	<inherits name="com.google.gwt.logging.Logging" />
+
+	<!-- Specify the app entry point class. -->
+	<entry-point
+		class='com.candorgrc.idfusion.sandbox.client.IdfSandbox' />
+
+	<!-- Specify the paths for translatable code -->
+	<source path='client' />
+
+	<!-- start GWT Compiler optimizations -->
+
+	<!-- only generate 'safari and firefox' {safari, chrome, firefox} permutations 
+		for user.agent property -->
+	<set-property name="user.agent" value="safari, gecko1_8" />
+
+	<!-- controls compiled JS size w.r.p.t. GWT exception stack trace code; 
+		possible values: strip, native, emulated -->
+	<set-property name="compiler.stackMode" value="emulated" />
+
+	<!-- reduces compiled JS size by assigning minimal-length selector names -->
+	<set-configuration-property
+		name="CssResource.obfuscationPrefix" value="empty" />
+
+	<!-- set to TRUE if and only if you are not using enums as String values 
+		to reduce compiled JS size -->
+	<set-configuration-property
+		name="compiler.enum.obfuscate.names" value="false" />
+
+	<!-- Code Splitting - configure initial fragments load sequence to decrease 
+		load time; but be careful because if the fragments are loaded in an order 
+		different than the one you specified it will cause your loading time to increase -->
+	<extend-configuration-property
+		name="compiler.splitpoint.initial.sequence"
+		value="com.candorgrc.idfusion.sandbox.client.Workspace" />
+
+	<!-- reduces compilation time by generating only one file no matter how 
+		many permutations/properties you have configured before this line; the uniquely 
+		generated file is slightly bigger, but per total there is a significant decrease 
+		in size -->
+	<collapse-all-properties />
+
+	<!-- end GWT Compiler optimizations -->
+
+	<!-- start Logger Settings -->
+
+	<!-- Set to FALSE to disable GWT logging -->
+	<set-property name="gwt.logging.enabled" value="TRUE" />
+
+	<!-- Set logLevel threshold - log all possible messages -->
+	<set-property name="gwt.logging.logLevel" value="ALL" />
+
+	<!-- Client-side logging handlers -->
+	<!-- Logs by calling method GWT.log(). These messages can only be seen in 
+		Development mode -->
+	<set-property name="gwt.logging.developmentModeHandler"
+		value="ENABLED" />
+
+	<!-- Logs to Java console. These messages can only be seen in Development 
+		mode -->
+	<set-property name="gwt.logging.systemHandler"
+		value="ENABLED" />
+
+	<!-- Logs to the browser console – Firebug, Chrome Inspector, IE Developer 
+		Toolbar, etc. These show the messages in the browser in either web or development 
+		mode, but are not visible unless the user opens one of these consoles directly. 
+		Use this logging handler together with ClientLoggingUtils.logToConsole() 
+		method(s) in order to see logged messages when running in development mode 
+		on a remote server -->
+	<set-property name="gwt.logging.consoleHandler"
+		value="ENABLED" />
+
+	<!-- Enables server-side logging; it also requires a properly configured 
+		remoteLoggingServlet to receive the logs -->
+	<set-property name="gwt.logging.simpleRemoteHandler"
+		value="DISABLED" />
+
+	<!-- end Logger Settings -->
+</module>

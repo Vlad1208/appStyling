@@ -1,0 +1,113 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:dp="urn:import:com.candorgrc.idfusion.sandbox.client.datapresentation">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel styleName="person-view">
+		<header>
+			<div class="filter-toolbar">
+				<div class="title">
+					<span class="label">Title:</span>
+					<select class="value">
+						<option value=""></option>
+						<option value="Mr.">Mr.</option>
+						<option value="Mrs.">Mrs.</option>
+						<option value="Ms.">Ms.</option>
+					</select>
+				</div>
+				<div class="first-name">
+					<span class="label">First Name:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="last-name">
+					<span class="label">Last Name:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="suffix">
+					<span class="label">Suffix:</span>
+					<select class="value">
+						<option value=""></option>
+						<option value="PhD">PhD.</option>
+						<option value="Engineer">Engineer</option>
+						<option value="Doctor">Doctor</option>
+					</select>
+				</div>
+				<div class="gender">
+					<span class="label">Gender:</span>
+					<select class="value">
+						<option value=""></option>
+						<option value="m">Male</option>
+						<option value="f">Female</option>
+					</select>
+				</div>
+				<div class="race">
+					<span class="label">Race:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="language">
+					<span class="label">Language:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="university">
+					<span class="label">University:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="buzzword">
+					<span class="label">Buzzword:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="email">
+					<span class="label">E-Mail:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="job-title">
+					<span class="label">Job Title:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="linkedin-skill">
+					<span class="label">LinkedinIn Skill:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="company">
+					<span class="label">Company:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="dept">
+					<span class="label">Department:</span>
+					<input type="text" class="value" />
+				</div>
+				<div class="ein">
+					<span class="label">Employer Identification Number:</span>
+					<input type="text" class="value" />
+				</div>
+
+
+				<div>
+					<label for="start">Start</label>
+					<input type="date" id="start" value="2018-09-29"
+						min="2018-01-01" max="2018-12-31" />
+				</div>
+				<div>
+					<label for="end">End</label>
+					<input type="date" id="end" value="2018-10-29"
+						min="2018-01-01" max="2018-12-31" />
+				</div>
+
+			</div>
+			<button ui:field="apply" class="apply-filters">Apply Filters</button>
+		</header>
+		<section>
+			<header class="controls">
+				<button ui:field="toggle" class="toggle-view-mode">Switch View Mode</button>
+				<button ui:field="reset" class="reset">Reset Data Collection</button>
+			</header>
+			<dp:PersonCellList ui:field="personList"
+				styleName="grid-view"></dp:PersonCellList>
+		</section>
+		<footer>
+			<button ui:field="fetch" class="fetch">Fetch more...</button>
+		</footer>
+	</g:HTMLPanel>
+</ui:UiBinder> 

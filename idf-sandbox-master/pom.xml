@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.candorgrc.idfusion</groupId>
+	<artifactId>idf-sandbox</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>IdFusion™ Sandbox</name>
+
+	<description>
+		IdFusion™ Sandbox for building proof of concept MVPs
+	</description>
+	<developers>
+		<developer>
+			<id>bp</id>
+			<name>Bogdan-George Petridean</name>
+			<url>https://www.linkedin.com/in/bogdan-petridean/</url>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<distribution>All Rights Reserved.</distribution>
+		</license>
+	</licenses>
+	<url>http://127.0.0.1:8080/sandbox.html</url>
+	<inceptionYear>2018</inceptionYear>
+	<organization>
+		<name>VeracityID, Inc.</name>
+		<url>https://www.veracityid.com/</url>
+	</organization>
+
+	<properties>
+		<gwt.version>2.8.2</gwt.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.version>3.7.0</maven.compiler.version>
+		<maven.source.version>3.0.1</maven.source.version>
+		<maven.clean.version>3.1.0</maven.clean.version>
+		<maven.jar.version>3.1.0</maven.jar.version>
+		<maven.install.version>2.5.2</maven.install.version>
+		<maven.resources.plugin>3.0.2</maven.resources.plugin>
+		<maven.war.version>3.2.0</maven.war.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<elemental2.version>1.0.0-RC1</elemental2.version>
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+		<inject.gin.version>2.1.2</inject.gin.version>
+		<inject.guice.version>3.0</inject.guice.version>
+		<libsass.version>0.2.10-libsass_3.5.3</libsass.version>
+		<lesscss.version>1.7.0.1.1</lesscss.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt</artifactId>
+				<version>${gwt.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.elemental2</groupId>
+				<artifactId>elemental2-dom</artifactId>
+				<version>${elemental2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.gwt.inject</groupId>
+				<artifactId>gin</artifactId>
+				<version>${inject.gin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>${inject.guice.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-dom</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Output classes directly into the webapp, so that IDEs and "mvn process-classes" 
+			update them in DevMode -->
+		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
+		<plugins>
+
+			<!-- Mojo's Maven Plugin for GWT -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>i18n</goal>
+						</goals>
+					</execution>
+				</executions>
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+				<configuration>
+					<runTarget>sandbox.html</runTarget>
+					<modules>
+						<module>com.candorgrc.idfusion.sandbox.IdfSandbox</module>
+					</modules>
+					<generateDirectory>src/main/java</generateDirectory>
+					<codeServerPort>9876</codeServerPort>
+					<port>8080</port>
+					<i18nConstantsBundle>com.candorgrc.idfusion.sandbox.client.i18n.I18nConstants</i18nConstantsBundle>
+				</configuration>
+			</plugin>
+
+			<!-- Copy project resources to the output directory -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven.resources.plugin}</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${webappDirectory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/webapp</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.version}</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<webappDirectory>${webappDirectory}</webappDirectory>
+				</configuration>
+			</plugin>
+
+			<!-- Install plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>${maven.install.version}</version>
+			</plugin>
+
+			<!-- Clean plugin -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${maven.clean.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Sources plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.source.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Compiler plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+
+			<!-- JAR plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven.jar.version}</version>
+			</plugin>
+
+			<!-- Build less files: less to css -->
+			<plugin>
+				<groupId>org.lesscss</groupId>
+				<artifactId>lesscss-maven-plugin</artifactId>
+				<version>${lesscss.version}</version>
+				<configuration>
+					<sourceDirectory>${project.basedir}/src/main/webapp/less</sourceDirectory>
+					<outputDirectory>${project.basedir}/src/main/webapp/less</outputDirectory>
+					<compress>true</compress>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Build SASS files: scss to css -->
+			<plugin>
+				<groupId>com.github.warmuuh</groupId>
+				<artifactId>libsass-maven-plugin</artifactId>
+				<version>${libsass.version}</version>
+				<executions>
+					<execution>
+						<id>sass</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<outputStyle>compressed</outputStyle>
+							<inputPath>${project.basedir}/src/main/webapp/scss</inputPath>
+							<outputPath>${project.basedir}/src/main/webapp/scss</outputPath>
+							<sourceMapOutputPath>${project.basedir}/src/main/webapp/scss</sourceMapOutputPath>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<!-- Profiles for setting properties that are different for development 
+		and production. -->
+	<profiles>
+
+		<!-- Development Mode profile; default -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<gwt.extraJvmArgs>-Xms128m -Xmx2g -Xss4096k</gwt.extraJvmArgs>
+				<gwt.module.suffix></gwt.module.suffix>
+				<skip.create.local.war.folder>false</skip.create.local.war.folder>
+				<!-- GWT JavaScript compiler output -->
+				<gwt.style>PRETTY</gwt.style>
+				<gwt.logLevel>INFO</gwt.logLevel>
+				<!-- reduces compiled JS size by disabling run-time checking of cast 
+					operations -->
+				<gwt.disableCastChecking>false</gwt.disableCastChecking>
+				<!-- reduces compiled JS size by disabling some of java.lang.Class methods 
+					(e.g. getName()); @bp set to 'false' in order to play nice with Java Reflection -->
+				<gwt.disableClassMetadata>false</gwt.disableClassMetadata>
+				<gwt.compiler.clusterFunctions>false</gwt.compiler.clusterFunctions>
+				<gwt.compiler.inlineLiteralParameters>false</gwt.compiler.inlineLiteralParameters>
+				<!-- DEPRECATED (thus set to FALSE): use Closure Compiler to further 
+					optimize the output JS; Set this to FALSE or comment it when you want to 
+					generate Compiler Metrics, otherwise the metrics will not be generated -->
+				<gwt.compiler.enableClosureCompiler>false</gwt.compiler.enableClosureCompiler>
+				<!-- DEPRECATED (thus set to FALSE): Enables JavaScript output suitable 
+					for post-compilation by Closure Compiler -->
+				<gwt.compiler.closureFormattedOutput>false</gwt.compiler.closureFormattedOutput>
+				<!-- do NOT always recompile GWT; allow incremental compilation -->
+				<gwt.compiler.force>false</gwt.compiler.force>
+				<!-- set it to true when in Development Mode, as it will make your compilation 
+					faster by skipping some of the normal steps. -->
+				<gwt.draftCompile>true</gwt.draftCompile>
+				<!-- If set to TRUE will throw '[ERROR] Current binding properties are 
+					expanding to more than one permutation but per-file compilation requires 
+					that each compile operate on only one permutation.' -->
+				<gwt.compiler.incremental>false</gwt.compiler.incremental>
+				<gwt.disableRunAsync>false</gwt.disableRunAsync>
+				<!-- use the lowest level of GWT Compiler optimization for Development 
+					Mode -->
+				<gwt.compiler.optimizationLevel>0</gwt.compiler.optimizationLevel>
+				<!-- do NOT use Aggressive GWT Compiler optimization for Development 
+					Mode -->
+				<gwt.compiler.disableAggressiveOptimization>true</gwt.compiler.disableAggressiveOptimization>
+				<gwt.compiler.optimizeDataflow>false</gwt.compiler.optimizeDataflow>
+				<gwt.compiler.ordinalizeEnums>false</gwt.compiler.ordinalizeEnums>
+				<!-- EXPERIMENTAL: Emit extra information allow chrome dev tools to display 
+					Java identifiers in many places instead of JavaScript functions. -->
+				<gwt.compiler.methodNameDisplayMode>FULL</gwt.compiler.methodNameDisplayMode>
+				<gwt.saveSource>true</gwt.saveSource>
+				<!-- Enable JavaScript Source Maps -->
+				<gwt.compiler.useSourceMaps>true</gwt.compiler.useSourceMaps>
+				<!-- Fail compilation if any input file contains an error. -->
+				<gwt.compiler.strict>true</gwt.compiler.strict>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>

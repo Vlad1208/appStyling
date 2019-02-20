@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="IdfSandbox">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.candorgrc.idfusion.sandbox.IdfSandbox' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/IdfSandbox/greet" class="com.candorgrc.idfusion.sandbox.server.GreetingServiceImpl" />
+
+</module>
